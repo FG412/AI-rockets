@@ -31,6 +31,7 @@ public class Rocket : MonoBehaviour
     public ParticleSystem fireSmall;
     public ParticleSystem embers;
     public ParticleSystem smokeEffect;
+    public CelestialBody startingPlanet;
     private ParticleSystem.MainModule fire;
     private ParticleSystem.MainModule emb;
     private ParticleSystem.MainModule smoke;
@@ -108,7 +109,7 @@ public class Rocket : MonoBehaviour
             }
             //VERIFYING ANGLE IMPACT
             else{
-                Vector3 normal = Vector3.up;                
+                Vector3 normal = (transform.position - startingPlanet.transform.position).normalized;
                 Vector3 rocketRay = this.transform.up;              
                 if (Vector3.Angle(normal, rocketRay) > angleThreshold){
                     this.isExploded = true;
@@ -120,7 +121,8 @@ public class Rocket : MonoBehaviour
     void OnCollisionStay(Collision collision) {
         if (collision.gameObject.layer != 3) {
             isLanded = true;
-            Vector3 normal = Vector3.up;
+            Vector3 normal = (transform.position - startingPlanet.transform.position).normalized;
+
             Vector3 rocketRay = this.transform.up;
             if (Vector3.Angle(normal, rocketRay) > angleThreshold){
                 this.isExploded = true;
@@ -140,6 +142,13 @@ public class Rocket : MonoBehaviour
     public Vector3 getEngineAcceleration() {
         return this.getEngineForce() / GetComponent<Rigidbody>().mass; 
     }
+    public Vector3 getRocketForce() {
+        return GetComponent<CelestialBody>().getGravityForce();
+    }
+
+    public Vector3 getRocketAcceleration() {
+        return this.getRocketForce() / GetComponent<Rigidbody>().mass; 
+    }
 
     public Vector3 getRocketSpeed(){
         return GetComponent<Rigidbody>().velocity;
@@ -154,7 +163,7 @@ public class Rocket : MonoBehaviour
     }
 
     public float getAltitude(){
-        return GetComponent<Rigidbody>().position.y;
+        return Vector3.Distance(startingPlanet.GetComponent<Rigidbody>().position, GetComponent<Rigidbody>().position) - startingPlanet.transform.localScale.x / 2 * this.transform.localScale.x;
     }
 
     public bool getIsIgnited() {
@@ -224,7 +233,18 @@ public class Rocket : MonoBehaviour
                 break;
 
         }
-
+        
+        if (getEngineThrust() > 0) {
+            fire.loop=true;
+            emb.loop=true;
+            smoke.loop=true;
+        }
+        else {
+            fire.loop=false;
+            emb.loop=false;
+            smoke.loop=false;
+        }
+        
         consumptionPerTimeStep = currentConsuption * Time.fixedDeltaTime;
     }
 
