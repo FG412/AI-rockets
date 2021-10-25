@@ -24,14 +24,14 @@ public class SphereLandingAgent : Agent
     public override void OnEpisodeBegin()
     {
         rocket.GetComponent<Rigidbody>().freezeRotation=true;
-        this.randomRelocateOnPlanet(0f, 30f, 0f);
+        //Academy.Instance.EnvironmentParameters.GetWithDefault("landing_randomization", 0f)
+        this.randomRelocateOnPlanet(3f);
 
         rocket.setIgnite(true);
         inside=false;
         previousDistance = currentDistance = Mathf.Abs((rocket.transform.position - target.transform.position).magnitude);
         startPosition = rocket.transform.position;
         startRotation = getBaseRotation().eulerAngles;
-        startUpDirection = new Vector3(transform.up.x, transform.up.y + 1, transform.up.z);
         rocket.setTriggerLegsDeploy(true);
     }
 
@@ -40,18 +40,16 @@ public class SphereLandingAgent : Agent
         Vector3 rotation = startRotation - transform.rotation.eulerAngles;
 
         sensor.AddObservation(rocket.getAltitude());
-        sensor.AddObservation(transform.InverseTransformDirection(target.transform.position -rocket.transform.position));
-        sensor.AddObservation(startPosition - rocket.transform.position);
-        sensor.AddObservation(rotation.x);
-        sensor.AddObservation(rotation.z);
+        sensor.AddObservation(transform.InverseTransformDirection(target.transform.position - rocket.transform.position));
         sensor.AddObservation(transform.InverseTransformDirection(rocket.getRocketSpeed()));
         sensor.AddObservation(transform.InverseTransformDirection(rocket.getRocketAngularSpeed()));
-        sensor.AddObservation(startUpDirection - transform.up);
+        sensor.AddObservation((rocket.transform.position - rocket.startingPlanet.transform.position).normalized - transform.up.normalized);
         sensor.AddObservation(rocket.getRocketMass());
-        sensor.AddObservation(transform.InverseTransformDirection(rocket.getEngineForce() - rocket.getRocketForce()));
+        sensor.AddObservation(transform.InverseTransformDirection(rocket.getEngineForce()));
+        sensor.AddObservation(transform.InverseTransformDirection(rocket.getRocketForce()));
         sensor.AddObservation(inside);
     }
-
+    
     public override void OnActionReceived(ActionBuffers actions)
     {
         rocket.setEngineThrust(actions.DiscreteActions[0]);
@@ -62,15 +60,19 @@ public class SphereLandingAgent : Agent
         if (rocket.getAltitude() > 1f){
             rocket.GetComponent<Rigidbody>().freezeRotation=false;
         }
-        if (rocket.getIsExploded()|| currentDistance > 40f) {
-            SetReward(-1);
+        if (rocket.getIsExploded()|| currentDistance > 100f) {
+            AddReward(-1f);
             EndEpisode();
         }
 
         if (currentDistance < previousDistance && !rocket.getIsLanded()) {
             AddReward(baseReward);
         }else{
-            AddReward(-baseReward);
+            AddReward(-0.75f * baseReward);
+        }
+
+        if (rocket.getIsLanded() && inside){
+            AddReward(baseReward * 5);
         }
 
         previousDistance = currentDistance;
@@ -114,24 +116,21 @@ public class SphereLandingAgent : Agent
             inside = false;
     }
 
-    private void OnTriggerStay(Collider collider) {
-        if (collider.gameObject.GetInstanceID() == target.gameObject.GetInstanceID())
-            AddReward(0.1f);
-    }
-
     public Rocket getRocket(){
         return rocket;
     }
-    public void randomRelocateOnPlanet(float rocketSpawnRandomness, float rocketSpawnAltitude, float rocketRotationRandomness) {
+    public void randomRelocateOnPlanet(float randomness) {
         rocket.restart();
         Vector3 randomPoint = Random.onUnitSphere;
-        Vector3 randomStartingPoint = new Vector3(randomPoint.x+ Random.Range(-rocketSpawnRandomness,rocketSpawnRandomness), randomPoint.y+ Random.Range(-rocketSpawnRandomness,rocketSpawnRandomness),  randomPoint.z+ Random.Range(-rocketSpawnRandomness,rocketSpawnRandomness)) * (rocket.startingPlanet.radius + rocketSpawnAltitude);
-        //Vector3 randomStartingPoint = new Vector3(randomPoint.x, randomPoint.y,  randomPoint.z) * (startingPlanet.radius + 50f);
+        //Vector3 randomStartingPoint = new Vector3 (Random.Range(-randomness ,randomness), Random.Range(-randomness,randomness), Random.Range(-randomness,randomness)) + (new Vector3(randomPoint.x, randomPoint.y,  randomPoint.z) * (rocket.startingPlanet.radius + 10f + (randomness * 10f)));
+        Vector3 randomStartingPoint = new Vector3(randomPoint.x, randomPoint.y,  randomPoint.z) * (rocket.startingPlanet.radius + 10f + (randomness * 10f));
 
         this.transform.position = rocket.startingPlanet.transform.position + randomStartingPoint;
         this.transform.rotation = getBaseRotation();
-        this.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x + Random.Range(-rocketRotationRandomness,rocketRotationRandomness), this.transform.rotation.eulerAngles.y + Random.Range(-rocketRotationRandomness,rocketRotationRandomness), this.transform.rotation.eulerAngles.z + Random.Range(-rocketRotationRandomness,rocketRotationRandomness));
-        target.transform.position = rocket.startingPlanet.transform.position + new Vector3(randomPoint.x, randomPoint.y,  randomPoint.z) * (rocket.startingPlanet.radius - 1.7f);
+        startUpDirection = this.transform.up;
+        this.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x + Random.Range(-randomness,randomness), this.transform.rotation.eulerAngles.y + Random.Range(-randomness,randomness), this.transform.rotation.eulerAngles.z + Random.Range(-randomness,randomness));
+        target.transform.position = rocket.startingPlanet.transform.position + new Vector3(randomPoint.x, randomPoint.y, randomPoint.z) * (rocket.startingPlanet.radius - 1f);
+    
     }
     public Quaternion getBaseRotation() {
         //RaycastHit hit;
