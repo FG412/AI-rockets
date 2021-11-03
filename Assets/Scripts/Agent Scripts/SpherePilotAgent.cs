@@ -73,7 +73,6 @@ public class SpherePilotAgent : Agent
         Debug.DrawRay(rocket.transform.position, rocket.getEngineForce() + rocket.getRocketForce(), Color.green, 0f);
         Debug.DrawRay(rocket.transform.position, rocket.getRocketForce(), Color.magenta, 0f);
         Debug.DrawRay(rocket.transform.position, rocket.getEngineForce(), Color.blue, 0f);
-        Debug.DrawRay(rocket.transform.position, target.transform.position -rocket.transform.position, Color.red, 0f);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)

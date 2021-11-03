@@ -5,7 +5,6 @@ using Unity.MLAgents.Actuators;
 
 public class SphereLandingAgent : Agent
 {
-
     private Rocket rocket;
     private float currentDistance;
     private float previousDistance;
@@ -13,7 +12,6 @@ public class SphereLandingAgent : Agent
     private bool inside;
     private Vector3 startPosition;
     private Vector3 startRotation;
-    private Vector3 startUpDirection;
     public GameObject target;
     public override void Initialize()
     {
@@ -127,7 +125,6 @@ public class SphereLandingAgent : Agent
 
         this.transform.position = rocket.startingPlanet.transform.position + randomStartingPoint;
         this.transform.rotation = getBaseRotation();
-        startUpDirection = this.transform.up;
         this.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x + Random.Range(-randomness,randomness), this.transform.rotation.eulerAngles.y + Random.Range(-randomness,randomness), this.transform.rotation.eulerAngles.z + Random.Range(-randomness,randomness));
         target.transform.position = rocket.startingPlanet.transform.position + new Vector3(randomPoint.x, randomPoint.y, randomPoint.z) * (rocket.startingPlanet.radius - 1f);
     

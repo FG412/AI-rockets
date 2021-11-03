@@ -54161,8 +54161,8 @@ GameObject:
   - component: {fileID: 1379429887}
   - component: {fileID: 1379429886}
   - component: {fileID: 1379429883}
-  - component: {fileID: 1379429884}
   - component: {fileID: 1379429885}
+  - component: {fileID: 1379429884}
   m_Layer: 11
   m_Name: Rocket0
   m_TagString: celestial body
@@ -54277,14 +54277,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1379429882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80ea075bd890ae44da8e31698c3c3f19, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
-  target: {fileID: 485922337}
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
 --- !u!114 &1379429885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54294,11 +54291,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1379429882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Script: {fileID: 11500000, guid: ecf8959caf9d1fa41aec64ba3d4169dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 10
-  TakeActionsBetweenDecisions: 1
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 1000
+  target: {fileID: 485922337}
+  landingPilotAgentModel: {fileID: 5022602860645237092, guid: ea2cacdd6bf528d4ea7ccc82192a291f,
+    type: 3}
 --- !u!114 &1379429886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54378,7 +54380,7 @@ MonoBehaviour:
   maxConsuption: 0.01
   xMaxDegRotation: 1
   zMaxDegRotation: 1
-  explosionThreshold: 5
+  explosionThreshold: 10
   angleThreshold: 80
   legs:
   - {fileID: 1235768849}
@@ -77424,7 +77426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 10
+  DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
 --- !u!114 &2095863243
 MonoBehaviour:
@@ -77435,13 +77437,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2095863241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80ea075bd890ae44da8e31698c3c3f19, type: 3}
+  m_Script: {fileID: 11500000, guid: a659ab4fef6949c4592ec0e80ccb3f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
+  MaxStep: 1000
   target: {fileID: 380000286}
 --- !u!96 &2095863244
 TrailRenderer:
@@ -77563,7 +77565,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: ea2cacdd6bf528d4ea7ccc82192a291f, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: SpherePilotAgent
@@ -77620,7 +77622,7 @@ MonoBehaviour:
   maxConsuption: 0.01
   xMaxDegRotation: 1
   zMaxDegRotation: 1
-  explosionThreshold: 5
+  explosionThreshold: 10
   angleThreshold: 80
   legs:
   - {fileID: 1867343654}
