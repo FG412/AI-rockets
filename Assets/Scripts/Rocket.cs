@@ -6,7 +6,8 @@ using UnityEngine;
 public class Rocket : MonoBehaviour
 {
     public float maxRocketThrust;
-    private float fuel;
+    public float startFuel;
+    public float fuelPerLiterWeight;
     public float maxConsuption;
     private bool ignite;
     private Vector3 force;
@@ -23,6 +24,7 @@ public class Rocket : MonoBehaviour
     private bool isLanded;
     private Vector3 readableForce;
     private float inpactVelocity;
+    public float dryMass;
     private float wetMass;
     private Rigidbody mainStage;
     public GameObject[] legs;
@@ -35,24 +37,27 @@ public class Rocket : MonoBehaviour
     private ParticleSystem.MainModule fire;
     private ParticleSystem.MainModule emb;
     private ParticleSystem.MainModule smoke;
+    private float fuel;
+
     void Awake() {
         
         mainStage = this.GetComponent<Rigidbody>();
-
-        wetMass = mainStage.mass;
         fire=fireSmall.main;
         emb = embers.main;
         smoke = smokeEffect.main;
     }
     void Start() //Z VELOCITY 8.79
     {   
+        
         inpactVelocity = 0f;
         readableForce = Vector3.zero; 
         xTeta = 0;
         zTeta = 0;
         ignite = false;
-        fuel = 1000000f;
+        fuel = startFuel;
+        wetMass = dryMass + (fuel * fuelPerLiterWeight);
         mainStage.mass = wetMass;
+        
         isExploded = false;
         currentConsuption = maxConsuption * 0;
         consumptionPerTimeStep = currentConsuption * Time.fixedDeltaTime;
@@ -189,6 +194,9 @@ public class Rocket : MonoBehaviour
                 if (xTeta > -xMaxDegRotation)
                     xTeta -= xMaxDegRotation/40;
                 break;
+            case 3:
+                xTeta=0;
+                break;
         }    
     }
     public void setEngineZ(int alpha) {
@@ -202,7 +210,15 @@ public class Rocket : MonoBehaviour
                 if (zTeta > -zMaxDegRotation)
                     zTeta -= zMaxDegRotation/40;
                 break;
+            case 3:
+                xTeta=0;
+                break;
         }
+    }
+    public void setFuelPercentage(int percentage){
+        fuel = fuel * (percentage/100f);
+        wetMass = dryMass + (fuel * fuelPerLiterWeight);
+        mainStage.mass = wetMass;
     }
 
     public bool getIsExploded() {
@@ -231,7 +247,10 @@ public class Rocket : MonoBehaviour
                 }
 
                 break;
-
+            case 3:
+                currentThrust=0;
+                currentConsuption=0;
+                break;
         }
         
         if (getEngineThrust() > 0) {

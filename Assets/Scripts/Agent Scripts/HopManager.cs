@@ -15,61 +15,52 @@ public class HopManager : Agent
     private Vector3 startRotation;
     public GameObject target;
     public NNModel landingPilotAgentModel;
-    private int currentStep;
     private bool landingPhase;
-
-    private Vector3 startUpDirection;
+    private bool firstEntry;
+    public Transform tangentPlane;
     public override void Initialize()
     {
         rocket = this.GetComponent<Rocket>();
         baseReward = 1f/MaxStep;
-        landingPhase = false;
-        currentStep = 0;
+        firstEntry=false;
+        tangentPlane.position = new Vector3(0,0,0);
+
     }
 
     public override void OnEpisodeBegin()
     {
-        if (landingPhase){
-            SetModel("SphereLandingAgent", landingPilotAgentModel);
-            landingTarget();
-            rocket.setTriggerLegsDeploy(true);
-        }else{
-            this.randomRelocateOnPlanet(0f);
-            rocket.setIgnite(true);
-            landingPhase = false;
-        }
-        
+        landingPhase = false;
+        this.randomRelocateOnPlanet(2f);
+
+        rocket.setIgnite(true);
         inside=false;
-        currentStep = 0;
         previousDistance = currentDistance = Mathf.Abs((rocket.transform.position - target.transform.position).magnitude);
         startPosition = rocket.transform.position;
         startRotation = getBaseRotation().eulerAngles;
-        startUpDirection = new Vector3(transform.up.x, transform.up.y + 1, transform.up.z);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        if (currentStep == MaxStep && !landingPhase){
-            landingPhase = true;
-            EndEpisode();  
-        }
-
+        if (landingPhase && !firstEntry) {
+            firstEntry=true;
+            rocket.setIgnite(true);
+            inside=false;
+            previousDistance = currentDistance = Mathf.Abs((rocket.transform.position - target.transform.position).magnitude);
+            startPosition = rocket.transform.position;
+            startRotation = getBaseRotation().eulerAngles;
+            rocket.setTriggerLegsDeploy(true);
+            Debug.Log("ENTRO");
+        }        
         sensor.AddObservation(rocket.getAltitude());
-        sensor.AddObservation(transform.InverseTransformDirection(target.transform.position -rocket.transform.position));
+        sensor.AddObservation(transform.InverseTransformDirection(target.transform.position - rocket.transform.position));
         sensor.AddObservation(transform.InverseTransformDirection(rocket.getRocketSpeed()));
         sensor.AddObservation(transform.InverseTransformDirection(rocket.getRocketAngularSpeed()));
-        if (landingPhase){
-            sensor.AddObservation((rocket.transform.position - rocket.startingPlanet.transform.position).normalized - transform.up.normalized);
-        }
-        else{
-            sensor.AddObservation(startUpDirection - transform.up);
-        }
+        sensor.AddObservation(Vector3.Angle(rocket.transform.up, (tangentPlane.right)));
+        sensor.AddObservation(Vector3.Angle(rocket.transform.up, (rocket.transform.position - rocket.startingPlanet.transform.position)));
         sensor.AddObservation(rocket.getRocketMass());
         sensor.AddObservation(transform.InverseTransformDirection(rocket.getEngineForce()));
         sensor.AddObservation(transform.InverseTransformDirection(rocket.getRocketForce()));
         sensor.AddObservation(inside);
-
-
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -78,7 +69,17 @@ public class HopManager : Agent
         rocket.setEngineX(actions.DiscreteActions[1]);
         rocket.setEngineZ(actions.DiscreteActions[2]);
         currentDistance = Mathf.Abs((rocket.transform.position - target.transform.position).magnitude);
-        currentStep++;
+
+        if (Input.GetKey(KeyCode.DownArrow) && !landingPhase) {
+            landingPhase = true;
+            setLandingTarget();
+            rocket.setIgnite(false);
+            rocket.setEngineX(3);
+            rocket.setEngineZ(3);
+            rocket.setEngineThrust(3);
+            SetModel("SphereLandingAgent", landingPilotAgentModel);
+            
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -129,8 +130,8 @@ public class HopManager : Agent
         this.transform.position = rocket.startingPlanet.transform.position + randomStartingPoint;
         this.transform.rotation = getBaseRotation();
         
-        target.transform.position = rocket.startingPlanet.transform.position + new Vector3(randomPoint.x, randomPoint.y,  randomPoint.z) * (rocket.startingPlanet.radius + 20f + Random.Range(0,targetSpawnRandomness) * 2);
-        target.transform.position = target.transform.position + new Vector3(Random.Range(0,targetSpawnRandomness), Random.Range(0,targetSpawnRandomness),Random.Range(0,targetSpawnRandomness));
+        target.transform.position = rocket.startingPlanet.transform.position + new Vector3(randomPoint.x, randomPoint.y,  randomPoint.z) * (rocket.startingPlanet.radius + 20f + (targetSpawnRandomness * 10f));
+        target.transform.position = target.transform.position + new Vector3(Random.Range(-targetSpawnRandomness,targetSpawnRandomness), Random.Range(-targetSpawnRandomness,targetSpawnRandomness),Random.Range(-targetSpawnRandomness,targetSpawnRandomness));
         target.transform.localScale = new Vector3(11 - targetSpawnRandomness, 11 -targetSpawnRandomness, 11-targetSpawnRandomness);
     }
     public Quaternion getBaseRotation() {
@@ -140,7 +141,7 @@ public class HopManager : Agent
         return Quaternion.FromToRotation (new Vector3(0, -1, 0), normal);
     }
 
-    public void landingTarget(){
+    public void setLandingTarget(){
         RaycastHit hit;
         LayerMask mask = LayerMask.GetMask("Ground");
         if (Physics.Raycast(rocket.transform.position, -rocket.transform.up, out hit, mask))
@@ -150,5 +151,8 @@ public class HopManager : Agent
                 target.transform.position = hit.point;
             }
         }
+    }
+    void FixedUpdate(){
+        tangentPlane.LookAt(rocket.transform, -Vector3.up);
     }
 }
