@@ -1,3 +1,5 @@
 # DeepSpace
 
-Enviroment for AI-Driven rocket in unity, powered by Unity ML-Agents.
+Repository contenente le due parti del progetto di tesi triennale in ingegneria informatica di Galli Federico
+
+
