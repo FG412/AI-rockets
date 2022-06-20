@@ -1,10 +1,9 @@
-# Sviluppo e sperimentazione di algoritmi di Reinforcement Learning per il controllo del volo di un razzo spaziale<br /><br /><br />
+# Sviluppo e sperimentazione di algoritmi di Reinforcement Learning per il controllo del volo di un razzo spaziale<br />
 
 
-Repository contenente le due parti del progetto di tesi triennale in ingegneria informatica di Galli Federico
+Repository contenente le due parti del progetto di tesi triennale in ingegneria informatica di Galli Federico.
 
-
-E' possibile selezionare i due differenti progetti sfogliando fra i tags.
+E' possibile selezionare i due differenti progetti sfogliando fra i tags.<br /><br />
 
 # Parte prima: corpo celeste piano; obiettivo decollo, stazionamento e atterraggio
 
@@ -12,7 +11,7 @@ Video esplicativo delle fase di salita:
 
 https://user-images.githubusercontent.com/59961650/174441517-81266363-3882-4466-a080-5dee7a0ced98.mp4
 
-Video espplicativo della fase di discesa:
+<br /><br />Video espplicativo della fase di discesa:
 
 
 
