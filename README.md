@@ -3,7 +3,7 @@
 
 Repository contenente le due parti del progetto di tesi triennale in ingegneria informatica di Galli Federico.
 
-E' possibile selezionare i due differenti progetti sfogliando fra i tags.<br /><br /><br />
+E' possibile selezionare i due differenti progetti sfogliando fra i tags. Di seguito possono essere visualizzati i video a cui si fa riferimento nel corso del lavoro scritto.<br /><br /><br />
 
 # Parte prima: corpo celeste piano; obiettivo decollo, stazionamento e atterraggio
 
