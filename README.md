@@ -26,4 +26,8 @@ https://user-images.githubusercontent.com/59961650/174570951-2f8e71f4-483b-41eb-
 
 https://user-images.githubusercontent.com/59961650/174571753-9c93fab7-39cb-4fbe-bcb4-7e2ae69c235d.mp4
 
-<br /><br />Video esplicativo dell'attrazione gravitazionale fra un corpo blu (massa 13000) ed un corpo rosso (massa 10) entrambi senza alcuna velocita'.<br />
+<br /><br />Video esplicativo dell'attrazione gravitazionale fra due corpi con medesima massa ed entrambi con velocita' lungo l'asse delle X tale da permettere di orbitare i corpi un punto esterno i corpi stessi.<br />
+
+
+https://user-images.githubusercontent.com/59961650/174572388-05c66d0c-7043-403b-a5fb-6cb17d898026.mp4
+
