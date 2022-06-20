@@ -17,10 +17,15 @@ https://user-images.githubusercontent.com/59961650/174441517-81266363-3882-4466-
 
 https://user-images.githubusercontent.com/59961650/174441910-391d2019-d6a1-4b43-a67e-11a5510cef8e.mp4
 
-# Parte seconda: corpo celeste sferico; obiettivo raggiungimento orbita corpo celeste
+# Parte seconda: corpo celeste sferico; obiettivo raggiungimento orbita corpo celeste<br />
 
-Video esplicativo dell'attrazione gravitazionale fra un corpo blu (massa 13000) ed un corpo rosso (massa 10)
+Video esplicativo dell'attrazione gravitazionale fra un corpo blu (massa 13000) ed un corpo rosso (massa 10) entrambi senza alcuna velocita'.
 
 https://user-images.githubusercontent.com/59961650/174570951-2f8e71f4-483b-41eb-b51c-46ac355bcc2d.mp4
 
-Video esplicativo dell'attrazione gravitazionale fra un corpo blu (massa 13000) ed un corpo rosso (massa 10)
+<br /><br />Video esplicativo dell'attrazione gravitazionale fra un corpo blu (massa 13000) ed un corpo rosso (massa 10). Quest'ultimo ha una velocita' lungo l'asse delle X tale da permettere di orbitare attorno al corpo massiccio. 
+
+
+https://user-images.githubusercontent.com/59961650/174571753-9c93fab7-39cb-4fbe-bcb4-7e2ae69c235d.mp4
+
+<br /><br /><br /><br />Video esplicativo dell'attrazione gravitazionale fra un corpo blu (massa 13000) ed un corpo rosso (massa 10) entrambi senza alcuna velocita'.
