@@ -17,7 +17,7 @@ https://user-images.githubusercontent.com/59961650/174441910-391d2019-d6a1-4b43-
 
 <br /><br /><br />
 
-# Parte seconda: corpo celeste sferico; obiettivo raggiungimento orbita corpo celeste<br />
+# Parte seconda: corpo celeste sferico; obiettivo raggiungimento orbita equatoriale corpo celeste<br />
 
 <br />Video esplicativo dell'attrazione gravitazionale fra un corpo blu (massa 13000) ed un corpo rosso (massa 10) entrambi senza alcuna velocita'.<br />
 
