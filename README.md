@@ -33,3 +33,9 @@ https://user-images.githubusercontent.com/59961650/174571753-9c93fab7-39cb-4fbe-
 
 https://user-images.githubusercontent.com/59961650/174572388-05c66d0c-7043-403b-a5fb-6cb17d898026.mp4
 
+<br /><br />Video esplicativo del comportamento di un agente addestrato per orbitare il corpo celeste di partenza con orbita ciroclare equatoriale.<br />
+
+
+https://user-images.githubusercontent.com/59961650/175507997-4757b1f8-9e36-4b39-acb1-f0381dac7f65.mp4
+
+
