@@ -33,7 +33,7 @@ https://user-images.githubusercontent.com/59961650/174571753-9c93fab7-39cb-4fbe-
 
 https://user-images.githubusercontent.com/59961650/174572388-05c66d0c-7043-403b-a5fb-6cb17d898026.mp4
 
-<br /><br />Video esplicativo del comportamento di un agente addestrato per orbitare il corpo celeste di partenza con orbita ciroclare equatoriale.<br />
+<br /><br />Video esplicativo del comportamento di un agente addestrato per orbitare il corpo celeste di partenza con orbita ciroclare equatoriale. Per apprezzare l'oribtare del razzo, il filtato e' stato velocizzato durante la fase di orbita di un x10 rispetto alla velocita' normale.<br />
 
 
 
