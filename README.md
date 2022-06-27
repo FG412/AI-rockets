@@ -11,9 +11,13 @@ E' possibile selezionare i due differenti progetti sfogliando fra i tags. Di seg
 
 https://user-images.githubusercontent.com/59961650/174441517-81266363-3882-4466-a080-5dee7a0ced98.mp4
 
-<br /><br />Video espplicativo della fase di discesa:<br />
+<br /><br />Video esplicativo della fase di discesa:<br />
 
 https://user-images.githubusercontent.com/59961650/174441910-391d2019-d6a1-4b43-a67e-11a5510cef8e.mp4
+
+<br /><br />Video esplicativo della composizione dei due modelli in modo da ottenere un HOP completo:<br />
+
+https://user-images.githubusercontent.com/59961650/175955011-f3f3cf2e-cbd5-4927-afef-dad174260146.mp4
 
 <br /><br /><br />
 
