@@ -1,5 +1,9 @@
 # Development and experimentation of Reinforcement Learning algorithms for controlling the flight of a space rocket<br />
 
+<br /><br />The project has been built up using Unity as a rendering / physic engine for the custom gravity simulation in C#. While for for controlling the flight of a space rocket i used reiforment learning,
+particulary the Proximal policy optimization (PPO Algorithm https://arxiv.org/abs/1707.06347).
+You can find the coplete thesis work at this [link](https://shorturl.at/AnHnJ).
+<br />
 
 Repository containing the two parts of the undergraduate thesis project in computer engineering by Federico Galli.
 
@@ -44,4 +48,3 @@ https://user-images.githubusercontent.com/59961650/175528903-78d95e69-714f-4b48-
 
 
 
-<br /><br />The project has been built up using Unity as a rendering / physic engine for the custom gravity simulation in C#. While for the reiforment learning section the Proximal policy optimization (PPO Algorithm https://arxiv.org/abs/1707.06347) has been usesd for the rocket motion control<br />
